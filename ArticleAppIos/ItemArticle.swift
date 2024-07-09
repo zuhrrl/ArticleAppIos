@@ -14,10 +14,13 @@ struct ItemArticle: View {
     var body: some View {
         NavigationLink(destination: ArticleDetailView(article: article)) {
             HStack {
-                Image("\(article.imageSource)")
-                    .resizable()
-                    .frame(width: 80.0, height: 80.0)
-                
+                AsyncImage(url: URL(string: "\(article.imageSource)")) { image in
+                    image.resizable()
+                } placeholder: {
+                    Color.gray
+                }
+                .frame(width: 80.0, height: 80.0)
+                .clipShape(.rect(cornerRadius: 15))
                 VStack(
                     alignment: .leading, content: {
                         Text("Author: \(article.author)")
